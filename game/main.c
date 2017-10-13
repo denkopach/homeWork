@@ -19,6 +19,7 @@ int main()
             int userNumTemp = scanf("%d", &userNum);
             while (!userNumTemp) {
                 printf("\n*EROR!* Invalid input\nEnter positive number(0-9): ");
+                fflush (stdin);
                 userNumTemp = scanf("%d", &userNum);
             }
 
