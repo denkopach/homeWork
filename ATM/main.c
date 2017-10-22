@@ -6,134 +6,154 @@
 
 int main()
 {
-    int pinAndMoney[5000][2];
-    int i, j;
-    int adminPin = 0; //here we specify the admin password
+    const int NUMBER_ACCOUNT_ARRAY = 5000; //size of the base
+    const int NUMBER_COLUMN_ARRAY = 2; //number of values for one pin code
+    const int NUMBER_COLUMN_MONEY = 1; //the column number in which the money is located
+    const int NUMBER_COLUMN_PIN = 0; //the column number in which the PIN is located
+    const char USER_CHOICE_1 = '1'; //
+    const char USER_CHOICE_2 = '2'; //
+    const char USER_CHOICE_3 = '3'; //
+    const char USER_CHOICE_0 = '0'; //
+    int pinAndMoneyArray[NUMBER_ACCOUNT_ARRAY][NUMBER_COLUMN_ARRAY]; //an array with a pin-code and money
+    int i, j = 0; //variables for counters
+    const int ADMIN_PIN = 0; //here we specify the admin password
+    const int NUMBER_LOGIN = 3; //the number of attempts will be logged
+    const char INTUT_VALIDATION_ADMIN_CHAR = '012'; //value for checking the user's choice in the admin panel
+    const char INTUT_VALIDATION_USER_CHAR = '0123'; //value for checking the user's choice in the user panel
 
-    for (i = 0, j = 1; i < 5000; i++, j += 2){
-        pinAndMoney[i][0] = j;
-        pinAndMoney[i][1] = rand()%1000;
+    //fill the array
+    for (i = 0, j = NUMBER_COLUMN_MONEY; i < NUMBER_ACCOUNT_ARRAY; i++, j += 2){
+        pinAndMoneyArray[i][NUMBER_COLUMN_PIN] = j;  //value of pin
+        pinAndMoneyArray[i][NUMBER_COLUMN_MONEY] = rand()%1000; //value of money
     }
 
     for (;;){
         int userPin, n = 0;
-        for (n = 0; n < 3; n++){
-            int userPinValue, userPin;
+        //input validation
+        for (n = 0; n < NUMBER_LOGIN; n++){
+            int inputValidation;
             do {
                 printf("\nEnter PIN:\n");
-                userPinValue = scanf("%d", &userPin);
+                inputValidation = scanf("%d", &userPin);
                 fflush (stdin);
-            }
-            while (!userPinValue);
-//admin acces
-            if (userPin == adminPin){
+
+            }while (!inputValidation);
+
+            //admin acces
+            if (userPin == ADMIN_PIN){
                 system ("cls");
                 printf("\nHello admin!\n");
             }
-            for(; userPin == adminPin;){
-                    int userSelected;
+            for(; userPin == ADMIN_PIN;){ //a loop with a test to enter the admin pin
+                    int userSelected; //user choice
                     n = 0;
+                    //check the correctness of the input
                     do {
                         fflush (stdin);
                         printf("\n 1. Loock all base\n 2. reset the entire database\n 0. Exit\n");
                         userSelected = getche();
-                        if (!strchr ("012", userSelected)){
+                        //input validation
+                        if (!strchr (&INTUT_VALIDATION_ADMIN_CHAR, userSelected)){
                             printf("\nInvalid value\n");
                         }
-                    }
-                    while (!strchr ("012", userSelected));
-
-                        if (userSelected == '1'){
+                    } while (userSelected != USER_CHOICE_1 && userSelected != USER_CHOICE_2 && userSelected != USER_CHOICE_0 );
+                        //base output
+                        if (userSelected == USER_CHOICE_1){
                             int i, j;
-                            for (i = 0; i < 5000; i++){
-                                for(j = 0; j < 2; j++){
-                                    printf("%d ", pinAndMoney[i][j]);
+                            for (i = 0; i < NUMBER_ACCOUNT_ARRAY; i++){
+                                for(j = 0; j < NUMBER_COLUMN_ARRAY; j++){
+                                    printf("%d ", pinAndMoneyArray[i][j]);
                                 }
                                 printf("\n");
                             }
                         }
-
-                        if (userSelected == '2'){
-                            for (i = 0; i < 5000; i++){
-                                pinAndMoney[i][1] = 0;
+                        //zero the money
+                        if (userSelected == USER_CHOICE_2){
+                            for (i = 0; i < NUMBER_ACCOUNT_ARRAY; i++){
+                                pinAndMoneyArray[i][NUMBER_COLUMN_MONEY] = 0;
                             }
                             printf("\n\nAll money is nulled\n\n");
                         }
-
-                        if (userSelected == '0'){
-                            getch();
+                        //exit from the admin area
+                        if (userSelected == USER_CHOICE_0){
                             system("cls");
                             break;
                         }
-                        if (userSelected > '2'){
-                            printf("\nInvalid value!\n");
-                        }
-            }
-            for(i = 0; i < 5000 && userPin != adminPin; i++){
-                if (pinAndMoney[i][0] == userPin){
-                    printf("PIN OK!!!");
-                    break;
-                }
             }
 
-            if (pinAndMoney[i][0] != userPin){
-                printf("Incorrect PIN");
+            //We perform a search in a loop if the login is not executed under the admin
+            for(i = 0; i < NUMBER_ACCOUNT_ARRAY && userPin != ADMIN_PIN; i++){
+                if (pinAndMoneyArray[i][NUMBER_COLUMN_PIN] == userPin){
+                        break;
+                }
             }
-            if (n == 1){
+            if (pinAndMoneyArray[i][NUMBER_COLUMN_PIN] == userPin){
+                    printf("PIN OK!!!");
+                    break;
+            }
+
+            if (n == NUMBER_LOGIN-2){
                 printf("\n\nLast try!!!\n");
+            }
+            if (n == NUMBER_LOGIN-1 ){
                 return 0;
             }
         }
-        int userSelected;
-        for (;userPin != 0;){
+            //execute if the pin is not true
+            if (pinAndMoneyArray[i][NUMBER_COLUMN_PIN] != userPin || pinAndMoneyArray[i][NUMBER_COLUMN_PIN] != 0){
+                printf("Incorrect PIN");
+            }
+        //login for the user
+        int userSelected; //user choice
+        for (;userPin != ADMIN_PIN;){
             do {
                 printf("\nPlease select an operation\n 1. Take money\n 2. Put money\n 3. Check balance\n 0. Exit\n");
                 printf("Please select an operation (0-3): ");
                 userSelected = getche();
-                if (!strchr ("0123", userSelected)){
+                if (!strchr (&INTUT_VALIDATION_USER_CHAR, userSelected)){
                     printf("\nInvalid value\n");
                 }
-            }
-            while (!strchr ("0123", userSelected));
-
+            } while (userSelected != USER_CHOICE_1 && userSelected != USER_CHOICE_2 && userSelected != USER_CHOICE_3 && userSelected != USER_CHOICE_0);
+            n = 0;
             //process operation "Take Money"
-            if (userSelected == '1'){
-                int selectedMoney, selectedMoneyValue = 0;
+            if (userSelected == USER_CHOICE_1){
+                int selectedMoney, inputValidation = 0;
                 do {
-                    printf("\nHow much money you want take?: (max = %d)", pinAndMoney[i][1]);
-                    selectedMoneyValue = scanf(" %d", &selectedMoney);
+                    printf("\nHow much money you want take?: (max = %d)", pinAndMoneyArray[i][NUMBER_COLUMN_MONEY]);
+                    inputValidation = scanf(" %d", &selectedMoney);
                     fflush (stdin);
-                    if (!selectedMoneyValue) {
+                    if (!inputValidation) {
                         printf("\nYou input inkorreck value!\n");
                     }
-                    else if (selectedMoney > pinAndMoney[i][1]){
+                    else if (selectedMoney > pinAndMoneyArray[i][NUMBER_COLUMN_MONEY]){
                         printf("\nYour balance is short of funds!!!\n");
                     }
-                }
-                while (!selectedMoneyValue || selectedMoney > pinAndMoney[i][1]);
-                pinAndMoney[i][1] = pinAndMoney[i][1] - selectedMoney;
+                }while (!inputValidation || selectedMoney > pinAndMoneyArray[i][NUMBER_COLUMN_MONEY]);
+
+                pinAndMoneyArray[i][NUMBER_COLUMN_MONEY] = pinAndMoneyArray[i][NUMBER_COLUMN_MONEY] - selectedMoney;
                 system ("cls");
             }
 
             //Process operation "Put money"
-            if (userSelected == '2'){
-                int selectedMoney, selectedMoneyValue = 0;
+            if (userSelected == USER_CHOICE_2){
+                int selectedMoney, inputValidation = 0;
                 do {
-                    printf("\nHow much money you want put?: ", pinAndMoney[i][1]);
-                    selectedMoneyValue = scanf(" %d", &selectedMoney);
+                    printf("\nHow much money you want put?: ", pinAndMoneyArray[i][NUMBER_COLUMN_MONEY]);
+                    inputValidation = scanf(" %d", &selectedMoney);
                     fflush (stdin);
-                    if (!selectedMoneyValue) {
-                        printf("\nYou input inkorreck value!\n");
+                    if (!inputValidation) {
+                        printf("\nYou input incorrect value!\n");
                     }
-                }
-                while (!selectedMoneyValue);
-                pinAndMoney[i][1] = pinAndMoney[i][1] + selectedMoney;
+                }while (!inputValidation);
+                pinAndMoneyArray[i][NUMBER_COLUMN_MONEY] = pinAndMoneyArray[i][NUMBER_COLUMN_MONEY] + selectedMoney;
                 system ("cls");
             }
-            if (userSelected == '3'){
-                printf("\n\nYour ballance is: %d\n", pinAndMoney[i][1]);
+            //balance check operation
+            if (userSelected == USER_CHOICE_3){
+                printf("\n\nYour ballance is: %d\n", pinAndMoneyArray[i][NUMBER_COLUMN_MONEY]);
             }
-            if (userSelected == '0'){
+            //exit from the user panel
+            if (userSelected == USER_CHOICE_0){
                 system ("cls");
                 break;
             }
