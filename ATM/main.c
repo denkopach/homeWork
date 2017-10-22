@@ -20,7 +20,6 @@ int main()
     const int NUMBER_LOGIN = 3; //the number of attempts will be logged
     const char INTUT_VALIDATION_ADMIN_CHAR = '012'; //value for checking the user's choice in the admin panel
     const char INTUT_VALIDATION_USER_CHAR = '0123'; //value for checking the user's choice in the user panel
-
     //fill the array
     for (i = 0, j = NUMBER_COLUMN_MONEY; i < NUMBER_ACCOUNT_ARRAY; i++, j += 2){
         pinAndMoneyArray[i][NUMBER_COLUMN_PIN] = j;  //value of pin
@@ -28,7 +27,8 @@ int main()
     }
 
     for (;;){
-        int userPin, n = 0;
+        int userPin;
+        int n = 0;
         //input validation
         for (n = 0; n < NUMBER_LOGIN; n++){
             int inputValidation;
@@ -36,7 +36,6 @@ int main()
                 printf("\nEnter PIN:\n");
                 inputValidation = scanf("%d", &userPin);
                 fflush (stdin);
-
             }while (!inputValidation);
 
             //admin acces
@@ -100,7 +99,7 @@ int main()
             }
         }
             //execute if the pin is not true
-            if (pinAndMoneyArray[i][NUMBER_COLUMN_PIN] != userPin || pinAndMoneyArray[i][NUMBER_COLUMN_PIN] != 0){
+            if (pinAndMoneyArray[i][NUMBER_COLUMN_PIN] != userPin && pinAndMoneyArray[i][NUMBER_COLUMN_PIN] != 0){
                 printf("Incorrect PIN");
             }
         //login for the user
