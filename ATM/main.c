@@ -10,10 +10,10 @@ int main()
     const int NUMBER_COLUMN_ARRAY = 2; //number of values for one pin code
     const int NUMBER_COLUMN_MONEY = 1; //the column number in which the money is located
     const int NUMBER_COLUMN_PIN = 0; //the column number in which the PIN is located
-    const char USER_CHOICE_1 = '1'; //
-    const char USER_CHOICE_2 = '2'; //
-    const char USER_CHOICE_3 = '3'; //
-    const char USER_CHOICE_0 = '0'; //
+    const char USER_CHOICE_1 = '1'; //user choice is 1
+    const char USER_CHOICE_2 = '2'; //user choice is 2
+    const char USER_CHOICE_3 = '3'; //user choice is 3
+    const char USER_CHOICE_0 = '0'; //user choice is 0
     int pinAndMoneyArray[NUMBER_ACCOUNT_ARRAY][NUMBER_COLUMN_ARRAY]; //an array with a pin-code and money
     int i, j = 0; //variables for counters
     const int ADMIN_PIN = 0; //here we specify the admin password
