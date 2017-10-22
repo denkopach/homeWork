@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1508529410 source:c:\lessons\homework\atm\main.c
+1508686556 source:c:\lessons\homework\atm\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>

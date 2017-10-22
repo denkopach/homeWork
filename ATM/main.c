@@ -16,7 +16,7 @@ int main()
     }
 
     for (;;){
-        int userPin,n = 0;
+        int userPin, n = 0;
         for (n = 0; n < 3; n++){
             int userPinValue, userPin;
             do {
@@ -25,15 +25,14 @@ int main()
                 fflush (stdin);
             }
             while (!userPinValue);
-
-
 //admin acces
             if (userPin == adminPin){
                 system ("cls");
                 printf("\nHello admin!\n");
             }
-            for(n = 0; userPin == adminPin;){
+            for(; userPin == adminPin;){
                     int userSelected;
+                    n = 0;
                     do {
                         fflush (stdin);
                         printf("\n 1. Loock all base\n 2. reset the entire database\n 0. Exit\n");
@@ -76,15 +75,12 @@ int main()
                     break;
                 }
             }
-            if (pinAndMoney[i][0] == userPin){
-                break;
-            }
 
-            if (n == 1){
+            if (pinAndMoney[i][0] != userPin){
                 printf("Incorrect PIN");
-                printf("\n\nLast try!!!\n");
             }
-            if (n == 2){
+            if (n == 1){
+                printf("\n\nLast try!!!\n");
                 return 0;
             }
         }
