@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1508796342 source:c:\lessons\countingoffletters\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
