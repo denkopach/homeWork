@@ -1,9 +1,0 @@
-# depslib dependency file v1.0
-1507886173 source:c:\lessons\homework\spruce\main.c
-	<stdio.h>
-	<stdlib.h>
-
-1507887894 source:c:\lessons\homework\spruceandtriangle\main.c
-	<stdio.h>
-	<stdlib.h>
-

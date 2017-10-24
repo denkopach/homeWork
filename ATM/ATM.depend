@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1508330254 source:c:\lessons\homework\atm\main.c
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-	<string.h>
-	<stdbool.h>
-
