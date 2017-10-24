@@ -18,10 +18,10 @@ int main()
 
         char letterAndAmountArray [SIZE_ALPHABET][NUMBER_OF_COLUMNS];
         char *tempVar; //temporary variable for text input
-//        char textString [STRING_SIZE];
 
-        char *textString;
-        textString = (char*)malloc(STRING_SIZE * sizeof(char));
+        char *textString; //array pointer
+        textString = (char*)malloc(STRING_SIZE * sizeof(char)); //Allocating memory
+
         int i,j = 0; //variables for counters
         int sizeFilledArr = 0;//the size of the filled array
         int tempSort = 0; //temporary variable for sorting
@@ -73,5 +73,6 @@ int main()
         for(i = 0; i < sizeFilledArr; i++){
             printf("%c - %d\n", letterAndAmountArray[i][COLUMN_WITH_LETTER], letterAndAmountArray[i][COLUMN_WITH_LETTER_AMOUNT]);
         }
+        free(textString);
     }
 }
