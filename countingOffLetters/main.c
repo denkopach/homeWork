@@ -3,7 +3,6 @@
 #include <string.h>
 #include <malloc.h>
 
-
 int main()
 {
     for (;;){
