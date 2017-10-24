@@ -13,8 +13,8 @@ int main()
         const int NUMBER_OF_COLUMNS = 2;
         const int COLUMN_WITH_LETTER = 0;
         const int COLUMN_WITH_LETTER_AMOUNT = 1;
-        const int ASCII_NOMBER_BIG_A = 65;
-        const int ASCII_NOMBER_SMAL_A = 97;
+        const int ASCII_NUMBER_BIG_A = 65;
+        const int ASCII_NUMBER_SMAL_A = 97;
 
         char letterAndAmountArray [SIZE_ALPHABET][NUMBER_OF_COLUMNS];
         char *tempVar; //temporary variable for text input
@@ -43,8 +43,8 @@ int main()
         for(i = 0; i < SIZE_ALPHABET; i++){
             for(j = 0; j < strlen(textString); j++){
 
-                if (textString[j] == i + ASCII_NOMBER_BIG_A || textString[j] == i + ASCII_NOMBER_SMAL_A){
-                    letterAndAmountArray[sizeFilledArr][COLUMN_WITH_LETTER] = i + ASCII_NOMBER_BIG_A;
+                if (textString[j] == i + ASCII_NUMBER_BIG_A || textString[j] == i + ASCII_NUMBER_SMAL_A){
+                    letterAndAmountArray[sizeFilledArr][COLUMN_WITH_LETTER] = i + ASCII_NUMBER_BIG_A;
                     letterAndAmountArray[sizeFilledArr][1] = amountLetter;
                     amountLetter++;
                 }
