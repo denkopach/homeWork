@@ -4,8 +4,9 @@
 	<stdlib.h>
 	<string.h>
 
-1508875373 source:c:\lessons\homework\countingoffletters\main.c
+1508877676 source:c:\lessons\homework\countingoffletters\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<malloc.h>
 
