@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+# depslib dependency file v1.0
+1508089371 source:c:\lessons\homework\cash\main.c
+	<stdio.h>
+	<stdlib.h>
+
+=======
+# depslib dependency file v1.0
+1508084512 source:c:\lessons\homework\cash\main.c
+	<stdio.h>
+	<stdlib.h>
+
+>>>>>>> 359250c64ce9c9eb1587776fd42976d331b5d68a
