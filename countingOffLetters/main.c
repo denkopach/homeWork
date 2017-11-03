@@ -3,75 +3,90 @@
 #include <string.h>
 #include <malloc.h>
 
+const SIZE_STR = 1000;
+const int SIZE_ARRAY = 26;
+int i, j = 0;
+
+char* getsString(){
+    printf("Enter text: ");
+    char* str = (char*)malloc(SIZE_STR * sizeof(char));
+    char tmpStr= gets(str);
+    return str;
+}
+
+int* createArray (int size){
+    int* array = (int*)malloc(size * sizeof(int));
+    int i = 0;
+    for(i = 0; i < size; i++){
+        array[i] = 0;
+    }
+    return array;
+}
+
+void countingOfLetters(char* string, char* letterArray, int* amountArray){
+    int tmpQuantity = 0;
+    for(i = 0; i < strlen(string); i++){
+        for (j = 0; j < SIZE_ARRAY; j++){
+            if (!isalpha(string[i])){
+                break;
+            }
+            if (i == 0){
+                letterArray[tmpQuantity] = string[i];
+                amountArray[tmpQuantity] = 1;
+                tmpQuantity++;
+                break;
+            }
+            if (letterArray[j] == string[i]){
+                amountArray[j]++;
+                break;
+            }
+            if (j == SIZE_ARRAY-1) {
+                letterArray[tmpQuantity] = string[i];
+                amountArray[tmpQuantity]++;
+                tmpQuantity++;
+            }
+        }
+    }
+}
+
+void printResult (char* letterArray, int* amountArray){
+    for (i = 0; i < SIZE_ARRAY; i++){
+        if (amountArray[i] > 0){
+                printf("%c - %d\n",letterArray[i], amountArray[i]);
+        }
+    }
+}
+
+void swapInt(int *xp, int *yp){
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+void swapChar(char *xp, char *yp){
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+void sortingArray (char* arrChar, int* arrInt){
+    for ( i = 0; i < SIZE_ARRAY-1; i ++ ){
+        for ( j = SIZE_ARRAY-2; j >= i; j -- ){
+            if ( arrInt[j] < arrInt[j+1] ){
+                swapInt(&arrInt[j], &arrInt[j+1]);
+                swapChar(&arrChar[j], &arrChar[j+1]);
+            }
+        }
+    }
+}
+
 int main()
 {
-    for (;;){
-
-        const int STRING_SIZE = 10000; //the maximum size of the text to be typed
-        const int SIZE_ALPHABET = 26;
-        const int NUMBER_OF_COLUMNS = 2;
-        const int COLUMN_WITH_LETTER = 0;
-        const int COLUMN_WITH_LETTER_AMOUNT = 1;
-        const int ASCII_NUMBER_BIG_A = 65;
-        const int ASCII_NUMBER_SMAL_A = 97;
-
-        char letterAndAmountArray [SIZE_ALPHABET][NUMBER_OF_COLUMNS];
-        char *tempVar; //temporary variable for text input
-
-        char *textString; //array pointer
-        textString = (char*)malloc(STRING_SIZE * sizeof(char)); //Allocating memory
-
-        int i,j = 0; //variables for counters
-        int sizeFilledArr = 0;//the size of the filled array
-        int tempSort = 0; //temporary variable for sorting
-
-        //zeroing an array
-        for (i = 0; i < SIZE_ALPHABET; i++){
-            for(j = 0; j < NUMBER_OF_COLUMNS; j++){
-                letterAndAmountArray[i][j] = 0;
-           }
-        }
-
-        printf("\nEnter text:\n");
-        tempVar = gets(textString);
-        fflush (stdin);
-
-        int amountLetter = 1; //Counting starts from one
-
-        //counting of letters
-        for(i = 0; i < SIZE_ALPHABET; i++){
-            for(j = 0; j < strlen(textString); j++){
-
-                if (textString[j] == i + ASCII_NUMBER_BIG_A || textString[j] == i + ASCII_NUMBER_SMAL_A){
-                    letterAndAmountArray[sizeFilledArr][COLUMN_WITH_LETTER] = i + ASCII_NUMBER_BIG_A;
-                    letterAndAmountArray[sizeFilledArr][1] = amountLetter;
-                    amountLetter++;
-                }
-            }
-            if (amountLetter > 1){
-                sizeFilledArr++;
-            }
-            amountLetter = 1;
-        }
-
-        //sort an array from large to small
-        for (j = 0; j < sizeFilledArr; j++){
-            for (i = 0; i <= sizeFilledArr; i++){
-                if (letterAndAmountArray[i][COLUMN_WITH_LETTER_AMOUNT] < letterAndAmountArray[i+1][COLUMN_WITH_LETTER_AMOUNT]){
-                    tempSort = letterAndAmountArray[i+1][COLUMN_WITH_LETTER];
-                    letterAndAmountArray[i+1][COLUMN_WITH_LETTER] = letterAndAmountArray[i][COLUMN_WITH_LETTER];
-                    letterAndAmountArray[i][COLUMN_WITH_LETTER] = tempSort;
-                    tempSort = letterAndAmountArray[i+1][COLUMN_WITH_LETTER_AMOUNT];
-                    letterAndAmountArray[i+1][COLUMN_WITH_LETTER_AMOUNT] = letterAndAmountArray[i][COLUMN_WITH_LETTER_AMOUNT];
-                    letterAndAmountArray[i][COLUMN_WITH_LETTER_AMOUNT] = tempSort;
-                }
-            }
-        }
-
-        //array output
-        for(i = 0; i < sizeFilledArr; i++){
-            printf("%c - %d\n", letterAndAmountArray[i][COLUMN_WITH_LETTER], letterAndAmountArray[i][COLUMN_WITH_LETTER_AMOUNT]);
-        }
-        free(textString);
-    }
+    char* letterArray = createArray(SIZE_ARRAY);
+    int* amountArray = createArray(SIZE_ARRAY);
+    char* string = getsString();
+    countingOfLetters(string, letterArray, amountArray);
+    sortingArray (letterArray, amountArray);
+    printResult(letterArray, amountArray);
+    getch();
 }
