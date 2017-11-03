@@ -10,7 +10,7 @@ int i, j = 0;
 char* getsString(){
     printf("Enter text: ");
     char* str = (char*)malloc(SIZE_STR * sizeof(char));
-    char tmpStr= gets(str);
+    char tmpStr = gets(str);
     return str;
 }
 
@@ -88,5 +88,7 @@ int main()
     countingOfLetters(string, letterArray, amountArray);
     sortingArray (letterArray, amountArray);
     printResult(letterArray, amountArray);
+    free(letterArray);
+    free(amountArray);
     getch();
 }
