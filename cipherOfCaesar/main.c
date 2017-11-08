@@ -3,7 +3,6 @@
 #include <malloc.h>
 #include <string.h>
 
-
 const int SIZE_STR = 1000000; //the size of the input string
 const int SIZE_ALPHABET = 26;
 //receiving a key for encryption, it can consist only of digits
@@ -14,6 +13,10 @@ int getKeyForCipher(){
         fflush (stdin);
         tmpN = scanf("%d", &keyForCipher);
     }while (!tmpN);
+
+    if (keyForCipher > SIZE_ALPHABET){
+        keyForCipher = keyForCipher % SIZE_ALPHABET;
+    }
     return keyForCipher;
 }
 
@@ -25,27 +28,25 @@ char* getsString(){
     return str;
 }
 
-void encryption(char* string, int keyForCipher){
+void changeString (char* string, int keyForCipher, char** argv){
     int i;
+    int keyForCipherTmp = keyForCipher;
 
     for(i = 0; i < strlen(string); i++){
-        if (isalpha(string[i]) && keyForCipher > SIZE_ALPHABET){
-            string[i] = string[i] + keyForCipher % SIZE_ALPHABET;
-        }
-        if (isalpha(string[i]) && keyForCipher <= SIZE_ALPHABET){
-            string[i] = string[i] + keyForCipher;
-        }
-    }
-}
-
-void decoder(char* string, int keyForCipher){
-    int i;
-    for(i = 0; i < strlen(string); i++){
-        if (isalpha(string[i]) && keyForCipher > SIZE_ALPHABET){
-            string[i] = string[i] - keyForCipher % SIZE_ALPHABET;
-        }
-        if (isalpha(string[i]) && keyForCipher <= SIZE_ALPHABET){
-            string[i] = string[i] - keyForCipher;
+        keyForCipher = keyForCipherTmp;
+        if (isalpha(string[i])){
+            if (!strcmp (argv[1], "-e")){
+                if (string[i] + keyForCipher > 'z'){
+                    keyForCipher = keyForCipher - SIZE_ALPHABET;
+                }
+                string[i] = string[i] + keyForCipher;
+            }
+            if (!strcmp (argv[1], "-d")){
+                if (string[i] - keyForCipher < 'a'){
+                    keyForCipher = keyForCipher - SIZE_ALPHABET;
+                }
+                string[i] = string[i] - keyForCipher;
+            }
         }
     }
 }
@@ -64,24 +65,15 @@ int checkArg(int argc, char** argv ){
     }
 }
 
-void stringOperation(char* string, char** argv, int keyForCipher){
-    if (!strcmp (argv[1], "-e")){
-        encryption(string, keyForCipher);
-    }
-    if (!strcmp (argv[1], "-d")){
-        decoder(string, keyForCipher);
-    }
-}
-
  int main(int argc, char **argv) {
-
     if (checkArg(argc, argv)){
         return 0;
     }
     int keyForCipher = getKeyForCipher();
     char* string = getsString();
-    stringOperation(string, argv, keyForCipher);
+    changeString (string, keyForCipher, argv);
     printf("\n%s", string);
 
+    free(string);
     return 0;
 }
