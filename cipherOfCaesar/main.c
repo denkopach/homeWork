@@ -36,16 +36,10 @@ void changeString (char* string, int keyForCipher, char** argv){
         keyForCipher = keyForCipherTmp;
         if (isalpha(string[i])){
             if (!strcmp (argv[1], "-e")){
-                if (string[i] + keyForCipher > 'z'){
-                    keyForCipher = keyForCipher - SIZE_ALPHABET;
-                }
-                string[i] = string[i] + keyForCipher;
+                string[i] = (string[i] + keyForCipher) % SIZE_ALPHABET + 'a';
             }
             if (!strcmp (argv[1], "-d")){
-                if (string[i] - keyForCipher < 'a'){
-                    keyForCipher = keyForCipher - SIZE_ALPHABET;
-                }
-                string[i] = string[i] - keyForCipher;
+                string[i] = (string[i] - keyForCipher + SIZE_ALPHABET) % SIZE_ALPHABET + 'a';
             }
         }
     }
