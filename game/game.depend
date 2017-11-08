@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1507891330 source:c:\lessons\homework\game\main.c
+1507887730 source:c:\lessons\homework\game\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
