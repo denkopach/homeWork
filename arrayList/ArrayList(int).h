@@ -1,5 +1,5 @@
 /**
- *   Created by Den Kopach 17.11.2017
+ *   Created by Den Kopach 20.11.2017
  *   ArrayList class with an array of int
 */
 
