@@ -1,5 +1,5 @@
 /**
- *   Created by Den Kopach 17.11.2017
+ *   Created by Den Kopach 21.11.2017
  *   ArrayList class with an array of void*
 */
 
@@ -8,34 +8,38 @@
 #include <iostream>
 
 using namespace std;
-
+template <class Type>
 class ArrayList{
 private:
     const int PRIMARY_SIZE = 10;
 
     int currentSize = 0;
     int maxSize = PRIMARY_SIZE;
-    void** array;
+    Type* array;
 
     //the maximum size of the array is doubled
     void doublingSize(){
-        void** tmpArray = new void*[maxSize*2];
+        Type* tmpArray = new Type[maxSize*2];
         for(int i = 0; i < maxSize; i++){
             tmpArray[i] = array[i];
         }
         delete array;
-        maxSize += maxSize;
-        void** array = tmpArray;
+        maxSize *= maxSize;
+        array = new Type[maxSize];
+        for(int i = 0; i < maxSize; i++){
+            array[i] = tmpArray[i];
+        }
+        delete tmpArray;
     }
 
 public:
     ArrayList(){
-        array = new void*[maxSize];
+        array = new Type[maxSize];
         return;
     }
 
     ArrayList(int arraySize){
-        array = new void*[arraySize];
+        array = new Type[arraySize];
         maxSize = arraySize;
         return;
     }
@@ -48,7 +52,7 @@ public:
     }
 
     //adding an item to the end of the list
-    void add(void* a){
+    void add(Type a){
         if (currentSize >= maxSize){
             this->doublingSize();
         }
@@ -57,12 +61,12 @@ public:
     }
 
     //inserting an element by index
-    void add (void* a, int index){
+    void add (Type a, int index){
         index = index - 1;
         if (currentSize+1 >= maxSize){
             this->doublingSize();
         }
-        void** tmpArray = new void*[maxSize-index];
+        Type* tmpArray = new Type[maxSize-index];
         for(int i = index, j = 0; i < maxSize; i++, j++){
             tmpArray[j] = array[i];
         }
@@ -76,7 +80,7 @@ public:
 
     //Deleting an array element for index
     void remove (int index){
-        void** tmpArray = new void*[maxSize - index];
+        Type* tmpArray = new Type[maxSize - index];
         for(int i = index, j = 0; i < maxSize; i++, j++){
             tmpArray[j] = array[i];
         }
@@ -88,7 +92,7 @@ public:
     }
 
     //check for the presence of a value
-    int checkValue (void* a){
+    int checkValue (Type a){
         for (int index = 0; index < currentSize; index++){
             if (array[index] == a){
                 return index;
@@ -97,32 +101,25 @@ public:
         return -1;
     }
 
-    //Deleting an array element for value
-    void remove (void* a){
-        int index = this->checkValue(a);
-            cout<<index<<endl;
-
-        if (index > 0){
-            this->remove(index);
-        }
-    }
-
     //Get poiner by index
-    void* getPointer (int index){
+    Type* getPointer (int index){
         return array[index];
     }
 
     int size(){
         return currentSize;
     }
-	
-	void trimToSize(){
-        void** tmpArray = new void*[currentSize];
+
+    void trimToSize(){
+        Type* tmpArray = new Type[currentSize];
         for(int i = 0; i < currentSize; i++){
             tmpArray[i] = array[i];
         }
         delete array;
-        void** array = tmpArray;
+        array = new Type[currentSize];
+        for(int i = 0; i < currentSize; i++){
+            array[i] = tmpArray[i];
+        }
         delete tmpArray;
     }
 };
