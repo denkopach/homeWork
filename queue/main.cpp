@@ -18,7 +18,7 @@ public:
     }
 
     int* nextPtr(int* ptr){
-        if(ptr == &queueArray[9]){
+        if(ptr == &queueArray[SIZE_QUEUE-1]){
             return queueArray;
         }else {
             ptr++;
@@ -50,7 +50,9 @@ public:
     }
 
     bool isVoid(){
-        return first == last;
+        if (!full){
+            return first == last;
+        }else return false;
     }
 };
 
