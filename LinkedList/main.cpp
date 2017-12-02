@@ -17,6 +17,7 @@ private:
     Node* lastNode;
     Node* previosNode;
     Node* currentNode;
+    Node* tmpNode;
 
     int count = 0;
 
@@ -27,7 +28,7 @@ public:
     }
 
     void addNode(int data){
-        Node* tmpNode = new Node;
+        tmpNode = new Node;
         tmpNode->data = data;
         tmpNode->nextNode = NULL;
         if(firstNode == NULL){
@@ -43,20 +44,26 @@ public:
     }
 
     void addNode(int data, int index, Node* currentNode = NULL){
-        Node* tmpNode = new Node;
-        tmpNode->data = data;
         if(count == 0){
+            tmpNode = new Node;
+            tmpNode->data = data;
             currentNode = firstNode;
         }
         if(index == 0){
             tmpNode->nextNode = firstNode;
             firstNode = tmpNode;
+            count = 0;
+            return;
+        }
+        if (currentNode->nextNode == NULL){
+            addNode(data);
             return;
         }
 
         else if(count == index-1){
-             tmpNode->nextNode = currentNode->nextNode;
+            tmpNode->nextNode = currentNode->nextNode;
             currentNode->nextNode = tmpNode;
+            count = 0;
             return;
         }
 
@@ -87,8 +94,7 @@ public:
             firstNode = firstNode->nextNode;
             return;
         }
-        else
-        if (count == index - 1){
+        else if (count == index - 1){
             previosNode = currentNode;
             cout<<"Step1"<<endl;
         }
@@ -96,6 +102,9 @@ public:
             previosNode->nextNode = currentNode->nextNode;
             delete currentNode;
             cout<<"Step2"<<endl;
+            return;
+        }
+        if (currentNode->nextNode == NULL){
             return;
         }
         currentNode = currentNode->nextNode;
@@ -115,10 +124,13 @@ int main()
     linkList->addNode(44);
 
 
-    linkList->addNode(1, 0);
+    linkList->addNode(2, 0);
+    linkList->addNode(111, 9);
+    linkList->removeNode(1);
+    linkList->removeNode(0);
 
-    linkList->removeNode(2);
     linkList->show();
-    cout << "Hello world!" << endl;
+    int data;
+    cin>>data;
     return 0;
 }
