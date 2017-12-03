@@ -24,12 +24,8 @@ private:
             tmpArray[i] = array[i];
         }
         delete array;
-        maxSize *= maxSize;
-        array = new Type[maxSize];
-        for(int i = 0; i < maxSize; i++){
-            array[i] = tmpArray[i];
-        }
-        delete tmpArray;
+        maxSize = maxSize*2;
+        array = tmpArray;
     }
 
 public:
@@ -66,28 +62,18 @@ public:
         if (currentSize+1 >= maxSize){
             this->doublingSize();
         }
-        Type* tmpArray = new Type[maxSize-index];
-        for(int i = index, j = 0; i < maxSize; i++, j++){
-            tmpArray[j] = array[i];
+        for(int i = currentSize+1; i > index; i-- ){
+            array[i] = array[i-1];
         }
         array[index] = a;
-        for (int i = index + 1, j = 0; i < maxSize; i++, j++){
-            array[i] = tmpArray[j];
-        }
-        delete tmpArray;
         currentSize++;
     }
 
     //Deleting an array element for index
     void remove (int index){
-        Type* tmpArray = new Type[maxSize - index];
-        for(int i = index, j = 0; i < maxSize; i++, j++){
-            tmpArray[j] = array[i];
+        for(int i = index; i < currentSize - 1; i++){
+            array[i] = array[i + 1];
         }
-        for (int i = index-1, j = 0; i < maxSize; i++, j++){
-            array[i] = tmpArray[j];
-        }
-        delete tmpArray;
         currentSize--;
     }
 
@@ -102,7 +88,7 @@ public:
     }
 
     //Get poiner by index
-    Type* getPointer (int index){
+    Type get(int index){
         return array[index];
     }
 
@@ -116,11 +102,7 @@ public:
             tmpArray[i] = array[i];
         }
         delete array;
-        array = new Type[currentSize];
-        for(int i = 0; i < currentSize; i++){
-            array[i] = tmpArray[i];
-        }
-        delete tmpArray;
+        array = tmpArray;
     }
 };
 
