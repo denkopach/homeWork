@@ -31,12 +31,12 @@ public:
         tmpNode = new Node;
         tmpNode->data = data;
         tmpNode->nextNode = NULL;
+
         if(firstNode == NULL){
             firstNode = tmpNode;
             lastNode = tmpNode;
             tmpNode = NULL;
-        }
-        else{
+        }else{
             lastNode->nextNode = tmpNode;
             tmpNode->nextNode = NULL;
             lastNode = tmpNode;
@@ -44,6 +44,10 @@ public:
     }
 
     void addNode(int data, int index, Node* currentNode = NULL){
+        if (index < 0){
+            cout<<"ERROR! index out of range"<<endl;
+            return;
+        }
         if(count == 0){
             tmpNode = new Node;
             tmpNode->data = data;
@@ -56,10 +60,9 @@ public:
             return;
         }
         if (currentNode->nextNode == NULL){
-            addNode(data);
+            cout<<"ERORR! index out of range"<<endl;
             return;
         }
-
         else if(count == index-1){
             tmpNode->nextNode = currentNode->nextNode;
             currentNode->nextNode = tmpNode;
@@ -86,7 +89,10 @@ public:
     }
 
     void removeNode(int index, int count = 0){
-
+        if (index < 0){
+            cout<<"ERROR! index out of range"<<endl;
+            return;
+        }
         if (count == 0){
             currentNode = firstNode;
         }
@@ -96,15 +102,14 @@ public:
         }
         else if (count == index - 1){
             previosNode = currentNode;
-            cout<<"Step1"<<endl;
         }
         if (count == index){
             previosNode->nextNode = currentNode->nextNode;
             delete currentNode;
-            cout<<"Step2"<<endl;
             return;
         }
         if (currentNode->nextNode == NULL){
+            cout<<"ERROR! index out of range"<<endl;
             return;
         }
         currentNode = currentNode->nextNode;
@@ -113,24 +118,28 @@ public:
     }
 };
 
-
 int main()
 {
     LinkedList* linkList = new LinkedList;
-    linkList->addNode(12);
-    linkList->addNode(45);
-    linkList->addNode(234);
-    linkList->addNode(24);
-    linkList->addNode(44);
 
+    linkList->addNode(1);
+    linkList->addNode(2);
+    linkList->addNode(3);
+    linkList->addNode(4);
+    linkList->addNode(5);
 
-    linkList->addNode(2, 0);
-    linkList->addNode(111, 9);
-    linkList->removeNode(1);
-    linkList->removeNode(0);
+    linkList->addNode(0, 0);
+    linkList->addNode(111, 5);
+    linkList->addNode(222, 3);
+    linkList->addNode(33, 2);
+    linkList->addNode(323, 1);
+
+    linkList->removeNode(-146464654564654654654654654);
+    linkList->removeNode(146464654564654654654654654);
+
+    linkList->removeNode(2);
 
     linkList->show();
-    int data;
-    cin>>data;
+
     return 0;
 }
