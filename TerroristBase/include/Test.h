@@ -15,6 +15,7 @@ public:
     char** createTestData();
     int getResult(char*);
     bool checkResult(int, int);
+    virtual ~Test();
 };
 
 #endif // TEST_H

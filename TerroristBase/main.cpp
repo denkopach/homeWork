@@ -8,13 +8,12 @@ using namespace std;
 
 int main(int argc, char* argv[]){
 
-    if(argc <= 1){
+    //Test execution if the argument is "--test", otherwise the program runs
+    if(argc > 1 && !strcmp(argv[1],"--test")){
+        Test();
+    }else{
         CreateData data("C:/lessons/homework/TerroristBase/input.txt");
         cout<<FindAllBase(&data).findBase();
-    }
-
-    else if(!strcmp(argv[1],"--test")){
-        Test();
     }
 
     return 0;

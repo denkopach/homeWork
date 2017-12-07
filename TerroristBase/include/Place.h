@@ -11,6 +11,7 @@ public:
     int placeSizeN, placeSizeM;
     char** place;
     char** createPlace(std::ifstream *);
+    virtual ~Place();
 };
 
 #endif // PLACE_H

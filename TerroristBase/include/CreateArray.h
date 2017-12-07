@@ -8,5 +8,6 @@ private:
 public:
     CreateArray(int);
     char** returnArray();
+    virtual ~CreateArray();
 };
 #endif // CREATEARRAY_H

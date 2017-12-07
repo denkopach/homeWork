@@ -1,4 +1,7 @@
 #include "FindAllBase.h"
+/**
+*   class counts the number of occurrences of an array with a base in an array with a place
+*/
 
 FindAllBase :: FindAllBase(CreateData* data){
     this->data = data;
@@ -38,4 +41,7 @@ bool FindAllBase :: checkPlacePresenceBase(char* base[MAX_SIZE_BASE], char* plac
 
 bool FindAllBase :: checkSymbol(char baseEllement, char placeEllement){
     return (baseEllement != placeEllement && baseEllement != SAND);
+}
+FindAllBase :: ~FindAllBase(){
+
 }

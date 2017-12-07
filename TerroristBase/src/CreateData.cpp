@@ -1,4 +1,7 @@
 #include "CreateData.h"
+/**
+*   class works with data necessary for the program
+*/
 
 CreateData :: CreateData(char* fileName){
     std::ifstream input(fileName);
@@ -9,4 +12,6 @@ CreateData :: CreateData(char* fileName){
     baseArr = base.createBase(&input);
     placeArr = place.createPlace(&input);
     input.close();
+}
+CreateData :: ~CreateData(){
 }

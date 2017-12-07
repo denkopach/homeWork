@@ -11,6 +11,7 @@ public:
     int baseSizeN, baseSizeM;
     char** base;
     char** createBase(std::ifstream *);
+    virtual ~Base();
 };
 
 #endif // BASE_H

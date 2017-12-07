@@ -6,15 +6,16 @@
 #include "Place.h"
 
 class CreateData{
-public:
+private:
     int placeSizeN, placeSizeM;
     int baseSizeN, baseSizeM;
+public:
     char** baseArr;
     char** placeArr;
     Base base;
     Place place;
-
     CreateData(char*);
+    virtual ~CreateData();
 };
 
 #endif // CREATEDATA_H
