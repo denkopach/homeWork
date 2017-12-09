@@ -1,11 +1,14 @@
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
 class Map{
 private:
     char* array;
-    const int SIZE_ARRAY = 1000000;
+    const unsigned SIZE_ARRAY = 1000000;
+    const int INT_MIN = -2147483648;
+    const int INT_MAX = 2147483647;
 public:
     Map(){
         array = new char[SIZE_ARRAY];
@@ -26,6 +29,11 @@ public:
     }
 
     void add(char* name, int data){
+        if(data < INT_MIN || data > INT_MAX){
+            cout<<"ERORR! Value value outside permissible limits"<<endl;
+            exit(1);
+        }
+
         array[hashFunc(name)] = data;
     }
 
@@ -34,8 +42,7 @@ public:
     }
 };
 
-int main()
-{
+int main(){
     Map map;
     map.add("Vasya", 28);
     map.add("Dima", 18);
