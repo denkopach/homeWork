@@ -8,13 +8,13 @@ private:
     int* queueArray = new int[SIZE_QUEUE];
     int* last;
     int* first;
-    bool full;
+    bool fullQueue;
 
 public:
     Queue(){
         first = queueArray;
         last = queueArray;
-        full = false;
+        fullQueue = false;
     }
 
     int* nextPtr(int* ptr){
@@ -27,32 +27,41 @@ public:
     }
 
     void put(int data){
-        if(full){
+        if(fullQueue){
             cout<<"Error - Queue is full"<<endl;
             return;
         }
         *last = data;
         last = nextPtr(last);
-        if(isVoid()){
-            full = true;
+        if(lastEquilFirst()){
+            fullQueue = true;
         }
     }
 
     int get(){
-        if(isVoid() && !full){
+        if(queueIsEmpty()){
             cout<<"Error - Queue is empty"<<endl;
             return 0;
         }
         int data = *first;
         first = nextPtr(first);
-        full = false;
+        fullQueue = false;
         return data;
     }
 
-    bool isVoid(){
-        if (!full){
-            return first == last;
+    //check queue for fullness
+    bool queueIsEmpty(){
+        if (!fullQueue){
+            return lastEquilFirst();
         }else return false;
+    }
+    //checking for the last element is equal to the first
+    bool lastEquilFirst(){
+        return first == last;
+    }
+
+    ~Queue(){
+        delete queueArray;
     }
 };
 
