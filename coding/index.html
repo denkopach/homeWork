@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Coding text</title>
+	<script type="text/javascript">
+		function caesarFuncCoding(isCoding) {
+			var result = "";
+			var ceazerString = document.getElementsByClassName('textForCoddingCaesar')[0].value + "";
+			var ceazerCode = parseInt(document.getElementsByClassName('codeCaesar')[0].value + "")%26;
+			for(var i = 0; i < ceazerString.length; i++){
+				if(ceazerString [i].charCodeAt(0) > 96 && ceazerString [i].charCodeAt(0) < 123){
+					if(isCoding){
+						result += String.fromCharCode((((ceazerString [i].charCodeAt(0)-97) + ceazerCode)+26)%26+97);
+					}
+					if(!isCoding){
+						result += String.fromCharCode((((ceazerString [i].charCodeAt(0)-97) - ceazerCode)+26)%26+97);
+					}
+				}else{
+					result += ceazerString [i];
+				}
+
+			}
+			document.getElementById('textareaResultCaesar').value = result;
+		}
+		function vigenerFuncCoding(isCoding){
+			var result = "";
+			var ceazerString = document.getElementsByClassName('textForCoddingVigener')[0].value + "";
+			var ceazerCode = document.getElementsByClassName('codeVigener')[0].value + "";
+			var j = 0;
+			for(var i = 0; i < ceazerString.length; i++, j++){
+				if(ceazerString [i].charCodeAt(0) > 96 && ceazerString [i].charCodeAt(0) < 123){
+					if(j >= ceazerCode.length){
+						j = 0;	
+					}
+					if (isCoding){
+						result += String.fromCharCode((((ceazerString [i].charCodeAt(0) + ceazerCode[j].charCodeAt(0))-97*2)+26)%26+97);
+					}
+					if(!isCoding) {
+						result += String.fromCharCode(((ceazerString [i].charCodeAt(0) - 97) - (ceazerCode[j].charCodeAt(0) - 97)+26*2)%26+97);
+					}
+				}else{
+					result += ceazerString [i];
+				}
+			}
+			document.getElementById('textareaResultVigener').value = result;
+		}
+		function isDemical(string){
+			for(var i = 0; i < string.length; i++){
+				if(string [i].charCodeAt(0) < 48 && string [i].charCodeAt(0) > 57){
+					return false;
+				}
+			}
+			return true;
+		}
+	</script>
+</head>
+<body>
+	<div class="main">
+		<h1>Coding Text</h1>
+		<div class="codingBlock">
+			<h2>Caesar code</h2>
+			<form class="formCoding"  action="">
+				<textarea class="textForCoddingCaesar" type="text" placeholder="Input text" rows='2' cols='50'></textarea>
+				<br>
+				<textarea class="codeCaesar" type="text" placeholder="Input code (only numbers)" rows='1' cols='50'></textarea>
+				<br>
+				<input value="Coding" onclick="caesarFuncCoding(true)" type="button" />
+				<input value="Encoding" onclick="caesarFuncCoding(false)" type="button" />
+				<br>
+				<textarea id="textareaResultCaesar" placeholder="Result" readonly cols='50'></textarea>
+			</form>
+		</div>
+		<div class="codingBlock">
+			<h2>Vigenera Code</h2>
+			<form class="formCoding"  action="">
+				<textarea class="textForCoddingVigener" type="text" placeholder="Input text" rows='2' cols='50'></textarea>
+				<br>
+				<textarea class="codeVigener" type="text" placeholder="Input code (only letters)" rows='1' cols='50'></textarea>
+				<br>
+				<input value="Coding" onclick="vigenerFuncCoding(true)" type="button" />
+				<input value="Encoding" onclick="vigenerFuncCoding(false)" type="button" />
+				<br>
+				<textarea id="textareaResultVigener" placeholder="Result" readonly cols='50'></textarea>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
